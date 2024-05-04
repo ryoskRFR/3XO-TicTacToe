@@ -1,12 +1,13 @@
 let currentPlayer = 'X';
 let board = ['', '', '', '', '', '', '', '', ''];
 let olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let gameEnd = false;
 
 function makeMove(index) {
-    if (board[index] === '') {
+    if (!gameEnd && board[index] === '') {
         board[index] = currentPlayer; // set currentPlayer in the index cell
-        // Find and remove the oldest X or O if there are already 3 Xs or Os
         makeOlder(currentPlayer);
+        // Find and remove the oldest X or O if there are already 3 Xs or Os
         let countX = board.filter(cell => cell === 'X').length;
         let countO = board.filter(cell => cell === 'O').length;
         if ((currentPlayer === 'X' && countX > 3) || (currentPlayer === 'O' && countO > 3)) {
@@ -20,13 +21,15 @@ function makeMove(index) {
             cellElement.style.fontSize = `${4 - olderXOs[i] * 0.7}em`;
         }
 
-        // judge winner
+        // judge winner 勝敗が着いたらcellをクリックしても入力されないようにしたい
         if (checkWinner(currentPlayer)) {
             document.getElementById('status').innerText = currentPlayer + ' wins!';
+            gameEnd = true;
             return;
         }
         if (board.every(cell => cell !== '')) {
             document.getElementById('status').innerText = 'Draw!';
+            gameEnd = true;
             return;
         }
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -78,6 +81,7 @@ function resetGame() {
     currentPlayer = 'X';
     board = ['', '', '', '', '', '', '', '', ''];
     olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    gameEnd = false;
     document.querySelectorAll('.cell').forEach(cell => cell.innerText = '');
     document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn";
 }
