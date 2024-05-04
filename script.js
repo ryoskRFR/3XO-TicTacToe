@@ -24,7 +24,7 @@ function makeMove(index) {
                 if (olderXOs[i] === 3) {
                     cellElement.style.color = `#a4c7da`; // light color
                 } else {
-                    cellElement.style.color = `#6894ab`;
+                    cellElement.style.color = `#5eaad3`;
                 }
             } else if (board[i] === 'O') {
                 if (olderXOs[i] === 3) {
