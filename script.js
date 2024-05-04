@@ -20,10 +20,18 @@ function makeMove(index) {
             let cellElement = document.getElementById('board').children[i];
             cellElement.innerText = board[i];
             cellElement.style.fontSize = `${5 - olderXOs[i] * 0.8}em`;
-            if (board[i] === 'X') {
-                cellElement.style.color = `#6894ab`;
+            if (board[i] === 'X') { // change color denpending on X/O
+                if (olderXOs[i] === 3) {
+                    cellElement.style.color = `#a4c7da`; // light color
+                } else {
+                    cellElement.style.color = `#6894ab`;
+                }
             } else if (board[i] === 'O') {
-                cellElement.style.color = `#cc7eeb`;
+                if (olderXOs[i] === 3) {
+                    cellElement.style.color = `#d5a9e6`; // light color
+                } else {
+                    cellElement.style.color = `#cc7eeb`;
+                }
             }
         }
 
