@@ -19,7 +19,12 @@ function makeMove(index) {
         for (let i = 0; i < board.length; i++) {
             let cellElement = document.getElementById('board').children[i];
             cellElement.innerText = board[i];
-            cellElement.style.fontSize = `${4 - olderXOs[i] * 0.7}em`;
+            cellElement.style.fontSize = `${5 - olderXOs[i] * 0.8}em`;
+            if (board[i] === 'X') {
+                cellElement.style.color = `#6894ab`;
+            } else if (board[i] === 'O') {
+                cellElement.style.color = `#cc7eeb`;
+            }
         }
 
         // judge winner

@@ -1,28 +1,78 @@
+body {
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    height: 100vh;
+    overflow: hidden;
+}
+
+h1 {
+    font-family: 'Fredoka One', cursive;
+    text-transform: uppercase;
+    color: #f6f7f8;
+}
+
+#rule {
+    color: #adadad;
+}
+
 .container {
     text-align: center;
+    padding: 10px;
 }
 
 .board {
     display: flex;
     flex-wrap: wrap;
     width: 300px;
-    margin: 20px auto;
-    border: 1px solid #000;
+    margin: 30px auto;
+    /* border: 1px solid #000; */
 }
 
 .cell {
     width: 100px;
     height: 100px;
-    border: 1px solid #000;
+    border-right: 2px solid #f6f7f8;
+    border-bottom: 2px solid #f6f7f8;
     box-sizing: border-box;
     cursor: pointer;
     font-size: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Fredoka One', cursive;
+    /* color: #6894ab; */
+    /* color: #cc7eeb; */
+}
+
+.cell:nth-child(3n) {
+    border-right: none;
+}
+
+.cell:nth-child(n+7) {
+    border-bottom: none;
+}
+
+button {
+    width: 200px;
+    height: 30px;
+    background: none;
+    color: #adadad;
+    border: 1px solid #f6f7f8;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    color: #f6f7f8;
+    background: #adadad;
+    transition: .5s;
+    transform: translateY(-1px);
 }
 
 .status {
     margin-top: 20px;
     font-weight: bold;
+    color: #adadad;
 }
