@@ -1,14 +1,16 @@
 let currentPlayer = 'X';
 let board = ['', '', '', '', '', '', '', '', ''];
+let olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function makeMove(index) {
     if (board[index] === '') {
         // Find and remove the oldest X or O if there are already 3 Xs or Os
+        makeOlder(currentPlayer);
         let countX = board.filter(cell => cell === 'X').length;
         let countO = board.filter(cell => cell === 'O').length;
         if ((currentPlayer === 'X' && countX >= 3) || (currentPlayer === 'O' && countO >= 3)) {
             removeOldest(currentPlayer);
-        }
+        }// ここまで改良　ただい順番で消える
 
         board[index] = currentPlayer;
         let cellElement = document.getElementById('board').children[index];
@@ -23,14 +25,24 @@ function makeMove(index) {
             return;
         }
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn";
+        document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn" + olderXOs;
+    }
+}
+
+function makeOlder(player) {
+    // make X or O older
+    for (let i = 0; i < olderXOs.length; i++) {
+        if (board[i] === player) {
+            olderXOs[i] = olderXOs[i] + 1;
+        }
     }
 }
 
 function removeOldest(player) {
     // Find the index of the oldest X or O and remove it
-    for (let i = 0; i < board.length; i++) {
-        if (board[i] === player) {
+    for (let i = 0; i < olderXOs.length; i++) {
+        if ((board[i] === player) && (olderXOs[i] >= 3)) {
+            olderXOs[i] = 0;
             board[i] = '';
             let cellElement = document.getElementById('board').children[i];
             cellElement.innerText = '';
@@ -60,6 +72,7 @@ function checkWinner(player) {
 function resetGame() {
     currentPlayer = 'X';
     board = ['', '', '', '', '', '', '', '', ''];
+    olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     document.querySelectorAll('.cell').forEach(cell => cell.innerText = '');
     document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn";
 }
