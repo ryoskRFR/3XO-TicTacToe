@@ -4,19 +4,21 @@ let olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function makeMove(index) {
     if (board[index] === '') {
-        board[index] = currentPlayer;
+        board[index] = currentPlayer; // set currentPlayer in the index cell
         // Find and remove the oldest X or O if there are already 3 Xs or Os
         makeOlder(currentPlayer);
         let countX = board.filter(cell => cell === 'X').length;
         let countO = board.filter(cell => cell === 'O').length;
         if ((currentPlayer === 'X' && countX > 3) || (currentPlayer === 'O' && countO > 3)) {
             removeOldest(currentPlayer);
-        }// ここまで改良　正しい順番で消える
+        }
 
         // resize X/Os
-        let cellElement = document.getElementById('board').children[index];
-        cellElement.innerText = currentPlayer;
-        cellElement.style.fontSize = `${Math.max(countX, countO) + 1}em`; // Set font size based on the number of Xs or Os
+        for (let i = 0; i < board.length; i++) {
+            let cellElement = document.getElementById('board').children[i];
+            cellElement.innerText = board[i];
+            cellElement.style.fontSize = `${4 - olderXOs[i] * 0.7}em`;
+        }
 
         // judge winner
         if (checkWinner(currentPlayer)) {
