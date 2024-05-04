@@ -2,6 +2,7 @@ let currentPlayer = 'X';
 let board = ['', '', '', '', '', '', '', '', ''];
 let olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 let gameEnd = false;
+document.getElementById('status').innerText = "Start the game with player " + currentPlayer + "'s turn";
 
 function makeMove(index) {
     if (!gameEnd && board[index] === '') {
@@ -21,19 +22,19 @@ function makeMove(index) {
             cellElement.style.fontSize = `${4 - olderXOs[i] * 0.7}em`;
         }
 
-        // judge winner 勝敗が着いたらcellをクリックしても入力されないようにしたい
+        // judge winner
         if (checkWinner(currentPlayer)) {
-            document.getElementById('status').innerText = currentPlayer + ' wins!';
+            document.getElementById('status').innerText = currentPlayer + ' wins!' + `\n click "Restart" to restart the game`;
             gameEnd = true;
             return;
         }
         if (board.every(cell => cell !== '')) {
-            document.getElementById('status').innerText = 'Draw!';
+            document.getElementById('status').innerText = 'Draw!' + `\n click "Restart" to restart the game`;
             gameEnd = true;
             return;
         }
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn" + olderXOs;
+        document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn";
     }
 }
 
@@ -83,5 +84,5 @@ function resetGame() {
     olderXOs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     gameEnd = false;
     document.querySelectorAll('.cell').forEach(cell => cell.innerText = '');
-    document.getElementById('status').innerText = "Player " + currentPlayer + "'s turn";
+    document.getElementById('status').innerText = "Start the game with player " + currentPlayer + "'s turn";
 }
